@@ -1,21 +1,17 @@
-import Home from "./image";
-
-
-function App(){
-
-
-  return(
-
-
-    <>  
+import './App.css'
+import Fetch from './Fetch'
+import Insrt from './insert'
+import {Route ,Routes} from "react-router-dom"
+function App() {
+  return (
+    <>
+    <Routes> 
+      <Route index element={ <Insrt />} />
+      <Route path="/Fetch" element={ <Fetch />}/> 
+       </Routes>
     
-    <Home />
-     </>
+    </>
   )
-
-
-
-  
-  
 }
-export default App;
+
+export default App
