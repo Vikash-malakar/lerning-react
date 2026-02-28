@@ -1,53 +1,98 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const weatherData = {
-    Delhi: { temp: 32, condition: "Sunny ☀️" },
-    Mumbai: { temp: 28, condition: "Cloudy ☁️" },
-    Kolkata: { temp: 30, condition: "Rainy 🌧️" },
-    Chennai: { temp: 34, condition: "Hot 🔥" },
+  const questions = [
+    {
+      question: "Which language is used for React?",
+      options: ["Python", "JavaScript", "C++", "Java"],
+      answer: "JavaScript",
+    },
+    {
+      question: "React is a _____ ?",
+      options: ["Library", "Framework", "Database", "Language"],
+      answer: "Library",
+    },
+    {
+      question: "Which hook is used for state?",
+      options: ["useEffect", "useState", "useRef", "useMemo"],
+      answer: "useState",
+    },
+  ];
+
+  const [current, setCurrent] = useState(0);
+  const [score, setScore] = useState(0);
+  const [showResult, setShowResult] = useState(false);
+
+  const handleAnswer = (option) => {
+    if (option === questions[current].answer) {
+      setScore(score + 1);
+    }
+
+    const next = current + 1;
+    if (next < questions.length) {
+      setCurrent(next);
+    } else {
+      setShowResult(true);
+    }
   };
 
-  const [city, setCity] = useState("Delhi");
+  const restartQuiz = () => {
+    setCurrent(0);
+    setScore(0);
+    setShowResult(false);
+  };
 
   const containerStyle = {
     height: "100vh",
     display: "flex",
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    background: "linear-gradient(to right, #4facfe, #00f2fe)",
-    color: "#fff",
+    backgroundColor: "#f0f2f5",
     fontFamily: "Arial",
   };
 
   const cardStyle = {
-    backgroundColor: "rgba(255,255,255,0.2)",
+    background: "#fff",
     padding: "30px",
     borderRadius: "10px",
+    width: "350px",
     textAlign: "center",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
   };
 
   return (
     <div style={containerStyle}>
       <div style={cardStyle}>
-        <h1>Weather App</h1>
+        {showResult ? (
+          <>
+            <h2>Quiz Completed 🎉</h2>
+            <h3>
+              Your Score: {score} / {questions.length}
+            </h3>
+            <button onClick={restartQuiz}>Restart</button>
+          </>
+        ) : (
+          <>
+            <h3>
+              Question {current + 1} / {questions.length}
+            </h3>
+            <p>{questions[current].question}</p>
 
-        <select
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          style={{ padding: "8px", marginBottom: "20px" }}
-        >
-          {Object.keys(weatherData).map((c) => (
-            <option key={c} value={c}>
-              {c}
-            </option>
-          ))}
-        </select>
-
-        <h2>{city}</h2>
-        <h3>{weatherData[city].temp}°C</h3>
-        <p>{weatherData[city].condition}</p>
+            {questions[current].options.map((option, index) => (
+              <button
+                key={index}
+                onClick={() => handleAnswer(option)}
+                style={{
+                  display: "block",
+                  margin: "10px auto",
+                  padding: "8px 15px",
+                }}
+              >
+                {option}
+              </button>
+            ))}
+          </>
+        )}
       </div>
     </div>
   );
