@@ -1,27 +1,46 @@
 import React, { useState } from "react";
 
 export default function App() {
-  // 1️⃣ State create ki
-  const [count, setCount] = useState(0);
+  const [color, setColor] = useState("white");
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Counter App</h1>
+    <div
+      style={{
+        height: "100vh",
+        backgroundColor: color,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <h1>Color Changer App 🎨</h1>
 
-      <h2>{count}</h2>
-
-      {/* Increase Button */}
-      <button onClick={() => setCount(count + 1)}>
-        Increase
+      <button
+        onClick={() => setColor("red")}
+        style={{ margin: "5px" }}
+      >
+        Red
       </button>
 
-      {/* Decrease Button */}
-      <button onClick={() => setCount(count - 1)} style={{ marginLeft: "10px" }}>
-        Decrease
+      <button
+        onClick={() => setColor("green")}
+        style={{ margin: "5px" }}
+      >
+        Green
       </button>
 
-      {/* Reset Button */}
-      <button onClick={() => setCount(0)} style={{ marginLeft: "10px" }}>
+      <button
+        onClick={() => setColor("blue")}
+        style={{ margin: "5px" }}
+      >
+        Blue
+      </button>
+
+      <button
+        onClick={() => setColor("white")}
+        style={{ margin: "5px" }}
+      >
         Reset
       </button>
     </div>
