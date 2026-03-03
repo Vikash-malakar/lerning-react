@@ -1,48 +1,32 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [color, setColor] = useState("white");
+  const [text, setText] = useState("");
 
   return (
     <div
       style={{
         height: "100vh",
-        backgroundColor: color,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
+        fontFamily: "Arial",
       }}
     >
-      <h1>Color Changer App 🎨</h1>
+      <h1>Character Counter 📝</h1>
 
-      <button
-        onClick={() => setColor("red")}
-        style={{ margin: "5px" }}
-      >
-        Red
-      </button>
+      <textarea
+        rows="5"
+        cols="40"
+        placeholder="Type something..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        style={{ padding: "10px" }}
+      />
 
-      <button
-        onClick={() => setColor("green")}
-        style={{ margin: "5px" }}
-      >
-        Green
-      </button>
-
-      <button
-        onClick={() => setColor("blue")}
-        style={{ margin: "5px" }}
-      >
-        Blue
-      </button>
-
-      <button
-        onClick={() => setColor("white")}
-        style={{ margin: "5px" }}
-      >
-        Reset
-      </button>
+      <h3>Characters: {text.length}</h3>
+      <h3>Words: {text.trim() === "" ? 0 : text.trim().split(/\s+/).length}</h3>
     </div>
   );
 }
