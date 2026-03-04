@@ -1,7 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
-  const [text, setText] = useState("");
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div
@@ -11,22 +19,13 @@ export default function App() {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
+        backgroundColor: "#282c34",
+        color: "white",
         fontFamily: "Arial",
       }}
     >
-      <h1>Character Counter 📝</h1>
-
-      <textarea
-        rows="5"
-        cols="40"
-        placeholder="Type something..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        style={{ padding: "10px" }}
-      />
-
-      <h3>Characters: {text.length}</h3>
-      <h3>Words: {text.trim() === "" ? 0 : text.trim().split(/\s+/).length}</h3>
+      <h1>Digital Clock ⏰</h1>
+      <h2>{time.toLocaleTimeString()}</h2>
     </div>
   );
-}
+} 
