@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [number, setNumber] = useState(0);
+  const [show, setShow] = useState(true);
 
-  const generateNumber = () => {
-    const random = Math.floor(Math.random() * 100);
-    setNumber(random);
+  const toggleText = () => {
+    setShow(!show);
   };
 
   return (
@@ -16,18 +15,15 @@ export default function App() {
         fontFamily: "Arial",
       }}
     >
-      <h1>Random Number Generator 🎲</h1>
+      <h1>Show / Hide Text App</h1>
 
-      <h2>{number}</h2>
+      {show && <p>Hello! Welcome to React Learning 🚀</p>}
 
       <button
-        onClick={generateNumber}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-        }}
+        onClick={toggleText}
+        style={{ padding: "10px 20px", fontSize: "16px" }}
       >
-        Generate Number
+        {show ? "Hide Text" : "Show Text"}
       </button>
     </div>
   );
