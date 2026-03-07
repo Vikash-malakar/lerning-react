@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [show, setShow] = useState(true);
-
-  const toggleText = () => {
-    setShow(!show);
-  };
+  const [name, setName] = useState("");
 
   return (
     <div
@@ -15,16 +11,17 @@ export default function App() {
         fontFamily: "Arial",
       }}
     >
-      <h1>Show / Hide Text App</h1>
+      <h1>Greeting App 👋</h1>
 
-      {show && <p>Hello! Welcome to React Learning 🚀</p>}
+      <input
+        type="text"
+        placeholder="Enter your name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        style={{ padding: "8px", fontSize: "16px" }}
+      />
 
-      <button
-        onClick={toggleText}
-        style={{ padding: "10px 20px", fontSize: "16px" }}
-      >
-        {show ? "Hide Text" : "Show Text"}
-      </button>
+      <h2>Hello {name}!</h2>
     </div>
   );
 }
