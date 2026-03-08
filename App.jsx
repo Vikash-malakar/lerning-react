@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [name, setName] = useState("");
+  const [likes, setLikes] = useState(0);
+
+  const addLike = () => {
+    setLikes(likes + 1);
+  };
 
   return (
     <div
@@ -11,17 +15,20 @@ export default function App() {
         fontFamily: "Arial",
       }}
     >
-      <h1>Greeting App 👋</h1>
+      <h1>hello world</h1>
+      <h1>Like Button </h1>
 
-      <input
-        type="text"
-        placeholder="Enter your name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        style={{ padding: "8px", fontSize: "16px" }}
-      />
+      <h2>{likes} Likes</h2>
 
-      <h2>Hello {name}!</h2>
+      <button
+        onClick={addLike}
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px",
+        }}
+      >
+      
+      </button>
     </div>
   );
-}
+} 
