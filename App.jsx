@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [likes, setLikes] = useState(0);
+  const [status, setStatus] = useState(false);
 
-  const addLike = () => {
-    setLikes(likes + 1);
+  const toggleStatus = () => {
+    setStatus(!status);
   };
 
   return (
@@ -15,20 +15,19 @@ export default function App() {
         fontFamily: "Arial",
       }}
     >
-      <h1>hello world</h1>
-      <h1>Like Button </h1>
+      <h1>Toggle App</h1>
 
-      <h2>{likes} Likes</h2>
+      <h2>{status ? "ON " : "OFF "}</h2>
 
       <button
-        onClick={addLike}
+        onClick={toggleStatus}
         style={{
           padding: "10px 20px",
           fontSize: "16px",
         }}
       >
-      
+        Toggle
       </button>
     </div>
   );
-} 
+}
