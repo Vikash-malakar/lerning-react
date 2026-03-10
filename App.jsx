@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [status, setStatus] = useState(false);
+  const [birthYear, setBirthYear] = useState("");
+  const [age, setAge] = useState(null);
 
-  const toggleStatus = () => {
-    setStatus(!status);
+  const calculateAge = () => {
+    const currentYear = new Date().getFullYear();
+    setAge(currentYear - birthYear);
   };
 
   return (
@@ -15,19 +17,26 @@ export default function App() {
         fontFamily: "Arial",
       }}
     >
-      <h1>Toggle App</h1>
+      <h1>Age Calculator 🎂</h1>
 
-      <h2>{status ? "ON " : "OFF "}</h2>
+      <input
+        type="number"
+        placeholder="Enter your birth year"
+        value={birthYear}
+        onChange={(e) => setBirthYear(e.target.value)}
+        style={{ padding: "8px", fontSize: "16px" }}
+      />
+
+      <br /><br />
 
       <button
-        onClick={toggleStatus}
-        style={{
-          padding: "10px 20px",
-          fontSize: "16px",
-        }}
+        onClick={calculateAge}
+        style={{ padding: "10px 20px", fontSize: "16px" }}
       >
-        Toggle
+        Calculate Age
       </button>
+
+      {age && <h2>Your Age: {age}</h2>}
     </div>
   );
 }
