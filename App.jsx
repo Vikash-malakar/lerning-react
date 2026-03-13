@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [guess, setGuess] = useState("");
-  const [result, setResult] = useState("");
+  const [password, setPassword] = useState("");
+  const [show, setShow] = useState(false);
 
-  const randomNumber = Math.floor(Math.random() * 10) + 1;
-
-  const checkNumber = () => {
-    if (parseInt(guess) === randomNumber) {
-      setResult("Correct Guess!");
-    } else {
-      setResult("Wrong! Try again.");
-    }
+  const togglePassword = () => {
+    setShow(!show);
   };
 
   return (
@@ -19,30 +13,27 @@ export default function App() {
       style={{
         textAlign: "center",
         marginTop: "100px",
-        fontFamily: "Arial",
+        fontFamily: "Arial"
       }}
     >
-      <h1>Number Guessing Game</h1>
-
-      <p>Guess a number between 1 and 10</p>
+      <h1>Password Toggle App</h1>
 
       <input
-        type="number"
-        value={guess}
-        onChange={(e) => setGuess(e.target.value)}
+        type={show ? "text" : "password"}
+        placeholder="Enter password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
         style={{ padding: "8px", fontSize: "16px" }}
       />
 
       <br /><br />
 
       <button
-        onClick={checkNumber}
+        onClick={togglePassword}
         style={{ padding: "10px 20px", fontSize: "16px" }}
       >
-        Check
+        {show ? "Hide Password" : "Show Password"}
       </button>
-
-      <h2>{result}</h2>
     </div>
   );
 }
