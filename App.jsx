@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [password, setPassword] = useState("");
-  const [show, setShow] = useState(false);
+  const [text, setText] = useState("");
 
-  const togglePassword = () => {
-    setShow(!show);
+  const toUpper = () => {
+    setText(text.toUpperCase());
+  };
+
+  const toLower = () => {
+    setText(text.toLowerCase());
   };
 
   return (
@@ -16,23 +19,31 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Password Toggle App</h1>
+      <h1>Text Converter</h1>
 
-      <input
-        type={show ? "text" : "password"}
-        placeholder="Enter password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        style={{ padding: "8px", fontSize: "16px" }}
+      <textarea
+        rows="4"
+        cols="40"
+        placeholder="Enter text"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        style={{ padding: "10px", fontSize: "16px" }}
       />
 
       <br /><br />
 
       <button
-        onClick={togglePassword}
-        style={{ padding: "10px 20px", fontSize: "16px" }}
+        onClick={toUpper}
+        style={{ padding: "10px 20px", marginRight: "10px" }}
       >
-        {show ? "Hide Password" : "Show Password"}
+        Uppercase
+      </button>
+
+      <button
+        onClick={toLower}
+        style={{ padding: "10px 20px" }}
+      >
+        Lowercase
       </button>
     </div>
   );
