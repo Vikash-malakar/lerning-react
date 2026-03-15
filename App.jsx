@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [text, setText] = useState("");
+  const [item, setItem] = useState("");
+  const [list, setList] = useState([]);
 
-  const toUpper = () => {
-    setText(text.toUpperCase());
-  };
-
-  const toLower = () => {
-    setText(text.toLowerCase());
+  const addItem = () => {
+    if (item === "") return;
+    setList([...list, item]);
+    setItem("");
   };
 
   return (
@@ -19,32 +18,28 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Text Converter</h1>
+      <h1>Simple List App</h1>
 
-      <textarea
-        rows="4"
-        cols="40"
-        placeholder="Enter text"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        style={{ padding: "10px", fontSize: "16px" }}
+      <input
+        type="text"
+        placeholder="Enter item"
+        value={item}
+        onChange={(e) => setItem(e.target.value)}
+        style={{ padding: "8px", fontSize: "16px" }}
       />
 
-      <br /><br />
-
       <button
-        onClick={toUpper}
-        style={{ padding: "10px 20px", marginRight: "10px" }}
+        onClick={addItem}
+        style={{ padding: "8px 15px", marginLeft: "10px" }}
       >
-        Uppercase
+        Add
       </button>
 
-      <button
-        onClick={toLower}
-        style={{ padding: "10px 20px" }}
-      >
-        Lowercase
-      </button>
+      <ul style={{ marginTop: "20px", listStyle: "none" }}>
+        {list.map((data, index) => (
+          <li key={index}>{data}</li>
+        ))}
+      </ul>
     </div>
   );
 }
