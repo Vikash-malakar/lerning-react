@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [item, setItem] = useState("");
-  const [list, setList] = useState([]);
+  const [number, setNumber] = useState("");
+  const [result, setResult] = useState("");
 
-  const addItem = () => {
-    if (item === "") return;
-    setList([...list, item]);
-    setItem("");
+  const checkNumber = () => {
+    if (number % 2 === 0) {
+      setResult("Even Number");
+    } else {
+      setResult("Odd Number");
+    }
   };
 
   return (
@@ -18,28 +20,26 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Simple List App</h1>
+      <h1>Even or Odd Checker</h1>
 
       <input
-        type="text"
-        placeholder="Enter item"
-        value={item}
-        onChange={(e) => setItem(e.target.value)}
+        type="number"
+        placeholder="Enter number"
+        value={number}
+        onChange={(e) => setNumber(e.target.value)}
         style={{ padding: "8px", fontSize: "16px" }}
       />
 
+      <br /><br />
+
       <button
-        onClick={addItem}
-        style={{ padding: "8px 15px", marginLeft: "10px" }}
+        onClick={checkNumber}
+        style={{ padding: "10px 20px", fontSize: "16px" }}
       >
-        Add
+        Check
       </button>
 
-      <ul style={{ marginTop: "20px", listStyle: "none" }}>
-        {list.map((data, index) => (
-          <li key={index}>{data}</li>
-        ))}
-      </ul>
+      <h2>{result}</h2>
     </div>
   );
 }
