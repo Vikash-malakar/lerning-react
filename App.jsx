@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [number, setNumber] = useState("");
-  const [result, setResult] = useState("");
+  const [count, setCount] = useState(0);
+  const [step, setStep] = useState(1);
 
-  const checkNumber = () => {
-    if (number % 2 === 0) {
-      setResult("Even Number");
-    } else {
-      setResult("Odd Number");
-    }
+  const increase = () => {
+    setCount(count + Number(step));
+  };
+
+  const decrease = () => {
+    setCount(count - Number(step));
   };
 
   return (
@@ -20,26 +20,32 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Even or Odd Checker</h1>
+      <h1>Counter with Step</h1>
+
+      <h2>{count}</h2>
 
       <input
         type="number"
-        placeholder="Enter number"
-        value={number}
-        onChange={(e) => setNumber(e.target.value)}
+        value={step}
+        onChange={(e) => setStep(e.target.value)}
         style={{ padding: "8px", fontSize: "16px" }}
       />
 
       <br /><br />
 
       <button
-        onClick={checkNumber}
-        style={{ padding: "10px 20px", fontSize: "16px" }}
+        onClick={increase}
+        style={{ padding: "10px 20px", marginRight: "10px" }}
       >
-        Check
+        Increase
       </button>
 
-      <h2>{result}</h2>
+      <button
+        onClick={decrease}
+        style={{ padding: "10px 20px" }}
+      >
+        Decrease
+      </button>
     </div>
   );
 }
