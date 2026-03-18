@@ -1,50 +1,39 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [count, setCount] = useState(0);
-  const [step, setStep] = useState(1);
+  const [image, setImage] = useState(true);
 
-  const increase = () => {
-    setCount(count + Number(step));
-  };
-
-  const decrease = () => {
-    setCount(count - Number(step));
+  const toggleImage = () => {
+    setImage(!image);
   };
 
   return (
     <div
       style={{
         textAlign: "center",
-        marginTop: "100px",
+        marginTop: "50px",
         fontFamily: "Arial"
       }}
     >
-      <h1>Counter with Step</h1>
+      <h1>Image Toggle App</h1>
 
-      <h2>{count}</h2>
-
-      <input
-        type="number"
-        value={step}
-        onChange={(e) => setStep(e.target.value)}
-        style={{ padding: "8px", fontSize: "16px" }}
+      <img
+        src={
+          image
+            ? "https://via.placeholder.com/200?text=Image+1"
+            : "https://via.placeholder.com/200?text=Image+2"
+        }
+        alt="demo"
+        style={{ marginBottom: "20px" }}
       />
 
-      <br /><br />
+      <br />
 
       <button
-        onClick={increase}
-        style={{ padding: "10px 20px", marginRight: "10px" }}
-      >
-        Increase
-      </button>
-
-      <button
-        onClick={decrease}
+        onClick={toggleImage}
         style={{ padding: "10px 20px" }}
       >
-        Decrease
+        Change Image
       </button>
     </div>
   );
