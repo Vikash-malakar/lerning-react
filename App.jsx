@@ -1,40 +1,41 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [image, setImage] = useState(true);
+  const [tab, setTab] = useState("home");
 
-  const toggleImage = () => {
-    setImage(!image);
+  const content = {
+    home: "This is Home Page",
+    about: "This is About Page",
+    contact: "This is Contact Page",
   };
 
   return (
     <div
       style={{
         textAlign: "center",
-        marginTop: "50px",
+        marginTop: "100px",
         fontFamily: "Arial"
       }}
     >
-      <h1>Image Toggle App</h1>
+      <h1>Tabs App</h1>
 
-      <img
-        src={
-          image
-            ? "https://via.placeholder.com/200?text=Image+1"
-            : "https://via.placeholder.com/200?text=Image+2"
-        }
-        alt="demo"
-        style={{ marginBottom: "20px" }}
-      />
-
-      <br />
-
-      <button
-        onClick={toggleImage}
-        style={{ padding: "10px 20px" }}
-      >
-        Change Image
+      {/* Buttons */}
+      <button onClick={() => setTab("home")} style={{ margin: "5px" }}>
+        Home
       </button>
+
+      <button onClick={() => setTab("about")} style={{ margin: "5px" }}>
+        About
+      </button>
+
+      <button onClick={() => setTab("contact")} style={{ margin: "5px" }}>
+        Contact
+      </button>
+
+      {/* Content */}
+      <div style={{ marginTop: "20px" }}>
+        <h2>{content[tab]}</h2>
+      </div>
     </div>
   );
 }
