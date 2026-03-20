@@ -1,13 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
-  const [tab, setTab] = useState("home");
+  const [time, setTime] = useState(0);
+  const [running, setRunning] = useState(false);
 
-  const content = {
-    home: "This is Home Page",
-    about: "This is About Page",
-    contact: "This is Contact Page",
-  };
+  useEffect(() => {
+    let interval;
+
+    if (running) {
+      interval = setInterval(() => {
+        setTime((prevTime) => prevTime + 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [running]);
 
   return (
     <div
@@ -17,25 +24,33 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Tabs App</h1>
+      <h1>Stopwatch</h1>
 
-      {/* Buttons */}
-      <button onClick={() => setTab("home")} style={{ margin: "5px" }}>
-        Home
+      <h2>{time} seconds</h2>
+
+      <button
+        onClick={() => setRunning(true)}
+        style={{ margin: "5px" }}
+      >
+        Start
       </button>
 
-      <button onClick={() => setTab("about")} style={{ margin: "5px" }}>
-        About
+      <button
+        onClick={() => setRunning(false)}
+        style={{ margin: "5px" }}
+      >
+        Stop
       </button>
 
-      <button onClick={() => setTab("contact")} style={{ margin: "5px" }}>
-        Contact
+      <button
+        onClick={() => {
+          setTime(0);
+          setRunning(false);
+        }}
+        style={{ margin: "5px" }}
+      >
+        Reset
       </button>
-
-      {/* Content */}
-      <div style={{ marginTop: "20px" }}>
-        <h2>{content[tab]}</h2>
-      </div>
     </div>
   );
 }
