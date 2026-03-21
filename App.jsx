@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export default function App() {
-  const [time, setTime] = useState(0);
-  const [running, setRunning] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
-  useEffect(() => {
-    let interval;
-
-    if (running) {
-      interval = setInterval(() => {
-        setTime((prevTime) => prevTime + 1);
-      }, 1000);
+  const handleSubmit = () => {
+    if (name === "" || email === "") {
+      setError("All fields are required");
+    } else if (!email.includes("@")) {
+      setError("Invalid email");
+    } else {
+      setError("");
+      alert("Form Submitted Successfully");
     }
-
-    return () => clearInterval(interval);
-  }, [running]);
+  };
 
   return (
     <div
@@ -24,33 +24,36 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Stopwatch</h1>
+      <h1>Form Validation</h1>
 
-      <h2>{time} seconds</h2>
+      <input
+        type="text"
+        placeholder="Enter name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        style={{ padding: "8px", margin: "5px" }}
+      />
+
+      <br />
+
+      <input
+        type="text"
+        placeholder="Enter email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        style={{ padding: "8px", margin: "5px" }}
+      />
+
+      <br /><br />
 
       <button
-        onClick={() => setRunning(true)}
-        style={{ margin: "5px" }}
+        onClick={handleSubmit}
+        style={{ padding: "10px 20px" }}
       >
-        Start
+        Submit
       </button>
 
-      <button
-        onClick={() => setRunning(false)}
-        style={{ margin: "5px" }}
-      >
-        Stop
-      </button>
-
-      <button
-        onClick={() => {
-          setTime(0);
-          setRunning(false);
-        }}
-        style={{ margin: "5px" }}
-      >
-        Reset
-      </button>
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }
