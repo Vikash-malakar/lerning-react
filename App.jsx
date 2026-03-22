@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const data = ["Apple", "Banana", "Mango", "Orange", "Grapes"];
 
-  const handleSubmit = () => {
-    if (name === "" || email === "") {
-      setError("All fields are required");
-    } else if (!email.includes("@")) {
-      setError("Invalid email");
-    } else {
-      setError("");
-      alert("Form Submitted Successfully");
-    }
-  };
+  const [search, setSearch] = useState("");
+
+  const filteredData = data.filter((item) =>
+    item.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <div
@@ -24,36 +17,31 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Form Validation</h1>
+      <h1>Search Filter App</h1>
 
       <input
         type="text"
-        placeholder="Enter name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        style={{ padding: "8px", margin: "5px" }}
+        placeholder="Search fruit..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        style={{
+          padding: "8px",
+          fontSize: "16px",
+          marginBottom: "20px"
+        }}
       />
 
-      <br />
-
-      <input
-        type="text"
-        placeholder="Enter email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        style={{ padding: "8px", margin: "5px" }}
-      />
-
-      <br /><br />
-
-      <button
-        onClick={handleSubmit}
-        style={{ padding: "10px 20px" }}
-      >
-        Submit
-      </button>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      <ul style={{ listStyle: "none", padding: 0 }}>
+        {filteredData.length > 0 ? (
+          filteredData.map((item, index) => (
+            <li key={index} style={{ margin: "5px 0" }}>
+              {item}
+            </li>
+          ))
+        ) : (
+          <li>No results found</li>
+        )}
+      </ul>
     </div>
   );
 }
