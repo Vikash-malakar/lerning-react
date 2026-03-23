@@ -1,47 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 export default function App() {
-  const data = ["Apple", "Banana", "Mango", "Orange", "Grapes"];
+  const [dark, setDark] = useState(false);
 
-  const [search, setSearch] = useState("");
+  // Load saved theme
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      setDark(true);
+    }
+  }, []);
 
-  const filteredData = data.filter((item) =>
-    item.toLowerCase().includes(search.toLowerCase())
-  );
+  // Save theme
+  useEffect(() => {
+    localStorage.setItem("theme", dark ? "dark" : "light");
+  }, [dark]);
+
+  const containerStyle = {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    backgroundColor: dark ? "#121212" : "#ffffff",
+    color: dark ? "#ffffff" : "#000000",
+    fontFamily: "Arial"
+  };
 
   return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "100px",
-        fontFamily: "Arial"
-      }}
-    >
-      <h1>Search Filter App</h1>
+    <div style={containerStyle}>
+      <h1>{dark ? "Dark Mode" : "Light Mode"}</h1>
 
-      <input
-        type="text"
-        placeholder="Search fruit..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+      <button
+        onClick={() => setDark(!dark)}
         style={{
-          padding: "8px",
-          fontSize: "16px",
-          marginBottom: "20px"
+          padding: "10px 20px",
+          fontSize: "16px"
         }}
-      />
-
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {filteredData.length > 0 ? (
-          filteredData.map((item, index) => (
-            <li key={index} style={{ margin: "5px 0" }}>
-              {item}
-            </li>
-          ))
-        ) : (
-          <li>No results found</li>
-        )}
-      </ul>
+      >
+        Toggle Theme
+      </button>
     </div>
   );
 }
