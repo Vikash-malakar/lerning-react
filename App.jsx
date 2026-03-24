@@ -1,28 +1,19 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [num1, setNum1] = useState("");
-  const [num2, setNum2] = useState("");
-  const [result, setResult] = useState(null);
+  const quotes = [
+    "Believe in yourself",
+    "Never give up",
+    "Stay positive",
+    "Work hard, dream big",
+    "Success is coming",
+  ];
 
-  const add = () => {
-    setResult(Number(num1) + Number(num2));
-  };
+  const [quote, setQuote] = useState(quotes[0]);
 
-  const subtract = () => {
-    setResult(Number(num1) - Number(num2));
-  };
-
-  const multiply = () => {
-    setResult(Number(num1) * Number(num2));
-  };
-
-  const divide = () => {
-    if (num2 === "0") {
-      setResult("Cannot divide by zero");
-    } else {
-      setResult(Number(num1) / Number(num2));
-    }
+  const generateQuote = () => {
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    setQuote(quotes[randomIndex]);
   };
 
   return (
@@ -33,34 +24,19 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Simple Calculator</h1>
+      <h1>Quote Generator</h1>
 
-      <input
-        type="number"
-        placeholder="Enter first number"
-        value={num1}
-        onChange={(e) => setNum1(e.target.value)}
-        style={{ padding: "8px", margin: "5px" }}
-      />
+      <h2>"{quote}"</h2>
 
-      <br />
-
-      <input
-        type="number"
-        placeholder="Enter second number"
-        value={num2}
-        onChange={(e) => setNum2(e.target.value)}
-        style={{ padding: "8px", margin: "5px" }}
-      />
-
-      <br /><br />
-
-      <button onClick={add} style={{ margin: "5px" }}>Add</button>
-      <button onClick={subtract} style={{ margin: "5px" }}>Subtract</button>
-      <button onClick={multiply} style={{ margin: "5px" }}>Multiply</button>
-      <button onClick={divide} style={{ margin: "5px" }}>Divide</button>
-
-      <h2>Result: {result}</h2>
+      <button
+        onClick={generateQuote}
+        style={{
+          padding: "10px 20px",
+          fontSize: "16px"
+        }}
+      >
+        New Quote
+      </button>
     </div>
   );
 }
