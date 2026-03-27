@@ -1,32 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export default function App() {
-  const [seconds, setSeconds] = useState("");
-  const [time, setTime] = useState(0);
-  const [running, setRunning] = useState(false);
+  const [text, setText] = useState("");
+  const [copied, setCopied] = useState(false);
 
-  // Timer logic
-  useEffect(() => {
-    let timer;
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
 
-    if (running && time > 0) {
-      timer = setInterval(() => {
-        setTime((prev) => prev - 1);
-      }, 1000);
-    }
-
-    return () => clearInterval(timer);
-  }, [running, time]);
-
-  const startTimer = () => {
-    setTime(Number(seconds));
-    setRunning(true);
-  };
-
-  const resetTimer = () => {
-    setRunning(false);
-    setTime(0);
-    setSeconds("");
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
   };
 
   return (
@@ -37,27 +21,27 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Countdown Timer</h1>
+      <h1>Copy Text App</h1>
 
-      <input
-        type="number"
-        placeholder="Enter seconds"
-        value={seconds}
-        onChange={(e) => setSeconds(e.target.value)}
-        style={{ padding: "8px", margin: "5px" }}
+      <textarea
+        rows="4"
+        cols="40"
+        placeholder="Enter text here..."
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        style={{ padding: "10px" }}
       />
 
       <br /><br />
 
-      <button onClick={startTimer} style={{ margin: "5px" }}>
-        Start
+      <button
+        onClick={handleCopy}
+        style={{ padding: "10px 20px" }}
+      >
+        Copy Text
       </button>
 
-      <button onClick={resetTimer} style={{ margin: "5px" }}>
-        Reset
-      </button>
-
-      <h2>{time} seconds</h2>
+      {copied && <p>Text Copied!</p>}
     </div>
   );
 }
