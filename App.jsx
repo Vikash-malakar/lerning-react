@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [text, setText] = useState("");
-  const [copied, setCopied] = useState(false);
+  const [password, setPassword] = useState("");
+  const [strength, setStrength] = useState("");
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
+  const checkStrength = (value) => {
+    setPassword(value);
 
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
+    if (value.length < 4) {
+      setStrength("Weak");
+    } else if (value.length < 8) {
+      setStrength("Medium");
+    } else {
+      setStrength("Strong");
+    }
   };
 
   return (
@@ -21,27 +24,56 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Copy Text App</h1>
+      <h1>Password Strength Checker</h1>
 
-      <textarea
-        rows="4"
-        cols="40"
-        placeholder="Enter text here..."
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-        style={{ padding: "10px" }}
+      <input
+        type="password"
+        placeholder="Enter password"
+        value={password}
+        onChange={(e) => checkStrength(e.target.value)}
+        style={{ padding: "8px", fontSize: "16px" }}
       />
 
-      <br /><br />
+      <h2>Strength: {strength}</h2>
+    </div>
+  );
+}import React, { useState } from "react";
 
-      <button
-        onClick={handleCopy}
-        style={{ padding: "10px 20px" }}
-      >
-        Copy Text
-      </button>
+export default function App() {
+  const [password, setPassword] = useState("");
+  const [strength, setStrength] = useState("");
 
-      {copied && <p>Text Copied!</p>}
+  const checkStrength = (value) => {
+    setPassword(value);
+
+    if (value.length < 4) {
+      setStrength("Weak");
+    } else if (value.length < 8) {
+      setStrength("Medium");
+    } else {
+      setStrength("Strong");
+    }
+  };
+
+  return (
+    <div
+      style={{
+        textAlign: "center",
+        marginTop: "100px",
+        fontFamily: "Arial"
+      }}
+    >
+      <h1>Password Strength Checker</h1>
+
+      <input
+        type="password"
+        placeholder="Enter password"
+        value={password}
+        onChange={(e) => checkStrength(e.target.value)}
+        style={{ padding: "8px", fontSize: "16px" }}
+      />
+
+      <h2>Strength: {strength}</h2>
     </div>
   );
 }
