@@ -1,79 +1,61 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [password, setPassword] = useState("");
-  const [strength, setStrength] = useState("");
+  const data = [
+    {
+      question: "What is React?",
+      answer: "React is a JavaScript library for building UI.",
+    },
+    {
+      question: "What is useState?",
+      answer: "useState is a hook to manage state in React.",
+    },
+    {
+      question: "What is JSX?",
+      answer: "JSX is syntax that looks like HTML in JavaScript.",
+    },
+  ];
 
-  const checkStrength = (value) => {
-    setPassword(value);
+  const [openIndex, setOpenIndex] = useState(null);
 
-    if (value.length < 4) {
-      setStrength("Weak");
-    } else if (value.length < 8) {
-      setStrength("Medium");
+  const toggle = (index) => {
+    if (openIndex === index) {
+      setOpenIndex(null);
     } else {
-      setStrength("Strong");
+      setOpenIndex(index);
     }
   };
 
   return (
     <div
       style={{
-        textAlign: "center",
-        marginTop: "100px",
+        width: "300px",
+        margin: "100px auto",
         fontFamily: "Arial"
       }}
     >
-      <h1>Password Strength Checker</h1>
+      <h2>FAQ Accordion</h2>
 
-      <input
-        type="password"
-        placeholder="Enter password"
-        value={password}
-        onChange={(e) => checkStrength(e.target.value)}
-        style={{ padding: "8px", fontSize: "16px" }}
-      />
+      {data.map((item, index) => (
+        <div key={index} style={{ marginBottom: "10px" }}>
+          <div
+            onClick={() => toggle(index)}
+            style={{
+              background: "#ddd",
+              padding: "10px",
+              cursor: "pointer",
+            }}
+          >
+            {item.question}
+          </div>
 
-      <h2>Strength: {strength}</h2>
-    </div>
-  );
-}import React, { useState } from "react";
-
-export default function App() {
-  const [password, setPassword] = useState("");
-  const [strength, setStrength] = useState("");
-
-  const checkStrength = (value) => {
-    setPassword(value);
-
-    if (value.length < 4) {
-      setStrength("Weak");
-    } else if (value.length < 8) {
-      setStrength("Medium");
-    } else {
-      setStrength("Strong");
-    }
-  };
-
-  return (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "100px",
-        fontFamily: "Arial"
-      }}
-    >
-      <h1>Password Strength Checker</h1>
-
-      <input
-        type="password"
-        placeholder="Enter password"
-        value={password}
-        onChange={(e) => checkStrength(e.target.value)}
-        style={{ padding: "8px", fontSize: "16px" }}
-      />
-
-      <h2>Strength: {strength}</h2>
+          {openIndex === index && (
+            <div style={{ padding: "10px", border: "1px solid #ddd" }}>
+              {item.answer}
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }
