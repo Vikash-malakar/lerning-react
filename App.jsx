@@ -1,61 +1,55 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const data = [
-    {
-      question: "What is React?",
-      answer: "React is a JavaScript library for building UI.",
-    },
-    {
-      question: "What is useState?",
-      answer: "useState is a hook to manage state in React.",
-    },
-    {
-      question: "What is JSX?",
-      answer: "JSX is syntax that looks like HTML in JavaScript.",
-    },
-  ];
+  const [progress, setProgress] = useState(0);
 
-  const [openIndex, setOpenIndex] = useState(null);
-
-  const toggle = (index) => {
-    if (openIndex === index) {
-      setOpenIndex(null);
-    } else {
-      setOpenIndex(index);
+  const increase = () => {
+    if (progress < 100) {
+      setProgress(progress + 10);
     }
+  };
+
+  const reset = () => {
+    setProgress(0);
   };
 
   return (
     <div
       style={{
-        width: "300px",
-        margin: "100px auto",
+        textAlign: "center",
+        marginTop: "100px",
         fontFamily: "Arial"
       }}
     >
-      <h2>FAQ Accordion</h2>
+      <h1>Progress Bar</h1>
 
-      {data.map((item, index) => (
-        <div key={index} style={{ marginBottom: "10px" }}>
-          <div
-            onClick={() => toggle(index)}
-            style={{
-              background: "#ddd",
-              padding: "10px",
-              cursor: "pointer",
-            }}
-          >
-            {item.question}
-          </div>
+      <div
+        style={{
+          width: "300px",
+          height: "20px",
+          border: "1px solid #000",
+          margin: "20px auto",
+        }}
+      >
+        <div
+          style={{
+            width: progress + "%",
+            height: "100%",
+            backgroundColor: "green",
+            transition: "0.3s"
+          }}
+        ></div>
+      </div>
 
-          {openIndex === index && (
-            <div style={{ padding: "10px", border: "1px solid #ddd" }}>
-              {item.answer}
-            </div>
-          )}
-        </div>
-      ))}
+      <h2>{progress}%</h2>
+
+      <button onClick={increase} style={{ margin: "5px" }}>
+        Increase
+      </button>
+
+      <button onClick={reset} style={{ margin: "5px" }}>
+        Reset
+      </button>
     </div>
   );
 }
