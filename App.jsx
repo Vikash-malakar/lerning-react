@@ -1,17 +1,19 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [progress, setProgress] = useState(0);
+  const data = [
+    "Item 1","Item 2","Item 3","Item 4","Item 5",
+    "Item 6","Item 7","Item 8","Item 9","Item 10"
+  ];
 
-  const increase = () => {
-    if (progress < 100) {
-      setProgress(progress + 10);
-    }
-  };
+  const itemsPerPage = 3;
 
-  const reset = () => {
-    setProgress(0);
-  };
+  const [page, setPage] = useState(1);
+
+  const startIndex = (page - 1) * itemsPerPage;
+  const selectedItems = data.slice(startIndex, startIndex + itemsPerPage);
+
+  const totalPages = Math.ceil(data.length / itemsPerPage);
 
   return (
     <div
@@ -21,35 +23,33 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Progress Bar</h1>
+      <h1>Pagination App</h1>
 
-      <div
-        style={{
-          width: "300px",
-          height: "20px",
-          border: "1px solid #000",
-          margin: "20px auto",
-        }}
-      >
-        <div
-          style={{
-            width: progress + "%",
-            height: "100%",
-            backgroundColor: "green",
-            transition: "0.3s"
-          }}
-        ></div>
+      <ul style={{ listStyle: "none" }}>
+        {selectedItems.map((item, index) => (
+          <li key={index}>{item}</li>
+        ))}
+      </ul>
+
+      <div style={{ marginTop: "20px" }}>
+        <button
+          onClick={() => setPage(page - 1)}
+          disabled={page === 1}
+          style={{ margin: "5px" }}
+        >
+          Prev
+        </button>
+
+        <span> Page {page} of {totalPages} </span>
+
+        <button
+          onClick={() => setPage(page + 1)}
+          disabled={page === totalPages}
+          style={{ margin: "5px" }}
+        >
+          Next
+        </button>
       </div>
-
-      <h2>{progress}%</h2>
-
-      <button onClick={increase} style={{ margin: "5px" }}>
-        Increase
-      </button>
-
-      <button onClick={reset} style={{ margin: "5px" }}>
-        Reset
-      </button>
     </div>
   );
 }
