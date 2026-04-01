@@ -1,19 +1,7 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const data = [
-    "Item 1","Item 2","Item 3","Item 4","Item 5",
-    "Item 6","Item 7","Item 8","Item 9","Item 10"
-  ];
-
-  const itemsPerPage = 3;
-
-  const [page, setPage] = useState(1);
-
-  const startIndex = (page - 1) * itemsPerPage;
-  const selectedItems = data.slice(startIndex, startIndex + itemsPerPage);
-
-  const totalPages = Math.ceil(data.length / itemsPerPage);
+  const [show, setShow] = useState(false);
 
   return (
     <div
@@ -23,33 +11,44 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Pagination App</h1>
+      <h1>Modal Popup App</h1>
 
-      <ul style={{ listStyle: "none" }}>
-        {selectedItems.map((item, index) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <button onClick={() => setShow(true)}>
+        Open Modal
+      </button>
 
-      <div style={{ marginTop: "20px" }}>
-        <button
-          onClick={() => setPage(page - 1)}
-          disabled={page === 1}
-          style={{ margin: "5px" }}
+      {show && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
         >
-          Prev
-        </button>
+          <div
+            style={{
+              background: "#fff",
+              padding: "20px",
+              borderRadius: "5px",
+              width: "300px",
+              textAlign: "center"
+            }}
+          >
+            <h2>This is Modal</h2>
+            <p>Hello, this is a popup</p>
 
-        <span> Page {page} of {totalPages} </span>
-
-        <button
-          onClick={() => setPage(page + 1)}
-          disabled={page === totalPages}
-          style={{ margin: "5px" }}
-        >
-          Next
-        </button>
-      </div>
+            <button onClick={() => setShow(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
