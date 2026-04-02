@@ -1,7 +1,21 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const [show, setShow] = useState(false);
+  const images = [
+    "https://via.placeholder.com/300?text=Image+1",
+    "https://via.placeholder.com/300?text=Image+2",
+    "https://via.placeholder.com/300?text=Image+3"
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  const next = () => {
+    setIndex((index + 1) % images.length);
+  };
+
+  const prev = () => {
+    setIndex((index - 1 + images.length) % images.length);
+  };
 
   return (
     <div
@@ -11,44 +25,23 @@ export default function App() {
         fontFamily: "Arial"
       }}
     >
-      <h1>Modal Popup App</h1>
+      <h1>Image Slider</h1>
 
-      <button onClick={() => setShow(true)}>
-        Open Modal
+      <img
+        src={images[index]}
+        alt="slider"
+        style={{ width: "300px", height: "200px" }}
+      />
+
+      <br /><br />
+
+      <button onClick={prev} style={{ margin: "5px" }}>
+        Prev
       </button>
 
-      {show && (
-        <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
-          <div
-            style={{
-              background: "#fff",
-              padding: "20px",
-              borderRadius: "5px",
-              width: "300px",
-              textAlign: "center"
-            }}
-          >
-            <h2>This is Modal</h2>
-            <p>Hello, this is a popup</p>
-
-            <button onClick={() => setShow(false)}>
-              Close
-            </button>
-          </div>
-        </div>
-      )}
+      <button onClick={next} style={{ margin: "5px" }}>
+        Next
+      </button>
     </div>
   );
 }
