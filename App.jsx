@@ -1,47 +1,53 @@
 import React, { useState } from "react";
 
 export default function App() {
-  const images = [
-    "https://via.placeholder.com/300?text=Image+1",
-    "https://via.placeholder.com/300?text=Image+2",
-    "https://via.placeholder.com/300?text=Image+3"
-  ];
-
-  const [index, setIndex] = useState(0);
-
-  const next = () => {
-    setIndex((index + 1) % images.length);
+  const data = {
+    fruits: ["Apple", "Banana", "Mango"],
+    animals: ["Dog", "Cat", "Lion"],
+    colors: ["Red", "Green", "Blue"]
   };
 
-  const prev = () => {
-    setIndex((index - 1 + images.length) % images.length);
-  };
+  const [activeTab, setActiveTab] = useState("fruits");
 
   return (
     <div
       style={{
         textAlign: "center",
-        marginTop: "100px",
+        marginTop: "80px",
         fontFamily: "Arial"
       }}
     >
-      <h1>Image Slider</h1>
+      <h1>Dynamic Tabs App</h1>
 
-      <img
-        src={images[index]}
-        alt="slider"
-        style={{ width: "300px", height: "200px" }}
-      />
+      {/* Tabs */}
+      <div>
+        <button onClick={() => setActiveTab("fruits")} style={{ margin: "5px" }}>
+          Fruits
+        </button>
+        <button onClick={() => setActiveTab("animals")} style={{ margin: "5px" }}>
+          Animals
+        </button>
+        <button onClick={() => setActiveTab("colors")} style={{ margin: "5px" }}>
+          Colors
+        </button>
+      </div>
 
-      <br /><br />
-
-      <button onClick={prev} style={{ margin: "5px" }}>
-        Prev
-      </button>
-
-      <button onClick={next} style={{ margin: "5px" }}>
-        Next
-      </button>
+      {/* Content */}
+      <div style={{ marginTop: "20px" }}>
+        {data[activeTab].map((item, index) => (
+          <div
+            key={index}
+            style={{
+              border: "1px solid #ccc",
+              padding: "10px",
+              margin: "5px auto",
+              width: "200px"
+            }}
+          >
+            {item}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
